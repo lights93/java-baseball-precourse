@@ -7,4 +7,8 @@ public class Computer {
     public void createBaseBallNumber() {
         this.baseBallNumber = new BaseBallNumber(MAX_SIZE);
     }
+
+    public void askNumber() {
+        System.out.println("숫자를 입력해주세요:");
+    }
 }
