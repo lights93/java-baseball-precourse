@@ -1,4 +1,4 @@
-package nextstep;
+package baseball.domain;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;

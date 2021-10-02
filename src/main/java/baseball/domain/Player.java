@@ -1,4 +1,4 @@
-package nextstep;
+package baseball.domain;
 
 import nextstep.utils.Console;
 

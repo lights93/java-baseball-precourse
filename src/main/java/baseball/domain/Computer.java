@@ -1,4 +1,4 @@
-package nextstep;
+package baseball.domain;
 
 import baseball.exception.BaseballNumberException;
 import baseball.validator.BaseballNumberValidator;
