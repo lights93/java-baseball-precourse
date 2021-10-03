@@ -1,5 +1,7 @@
 package baseball.domain;
 
+import java.util.Objects;
+
 import baseball.exception.BaseballNumberException;
 import baseball.validator.BaseballNumberValidator;
 
@@ -29,5 +31,16 @@ public class Computer {
         }
 
         return true;
+    }
+
+    public boolean checkAnswer(String inputNumber) {
+        Objects.requireNonNull(baseballNumber, "숫자 생성이 안 되어 있습니다.");
+        HintResult hintResult = new HintResult(baseballNumber, inputNumber);
+
+        if (hintResult.getStrikeCount() == MAX_SIZE) {
+            return true;
+        }
+
+        return false;
     }
 }
