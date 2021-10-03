@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class HintResult {
     private final Map<Hint, Integer> hintCountMap;
+    private static final String SPACE = " ";
+    private static final String EMPTY_STRING = "";
 
     public HintResult(BaseballNumber baseballNumber, String inputNumber) {
         this.hintCountMap = initHintCountMap();
@@ -47,4 +49,24 @@ public class HintResult {
     public int getNothingCount() {
         return this.hintCountMap.get(Hint.NOTHING);
     }
+
+    public String makeHintString() {
+        StringBuilder sb = new StringBuilder();
+        for (Hint hint : Hint.values()) {
+            sb.append(makeHintString(hint)).append(SPACE);
+        }
+        if (sb.toString().trim().isEmpty()) {
+            return Hint.NOTHING.getFieldName();
+        }
+        return sb.toString().trim();
+    }
+
+    private String makeHintString(Hint hint) {
+        int count = hintCountMap.get(hint);
+        if (count > 0 && hint != Hint.NOTHING) {
+            return count + hint.getFieldName();
+        }
+        return EMPTY_STRING;
+    }
+
 }

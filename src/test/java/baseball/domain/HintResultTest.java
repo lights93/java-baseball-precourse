@@ -49,4 +49,16 @@ class HintResultTest {
         HintResult hintResult = new HintResult(mockBaseballNumber, inputNumber);
         assertThat(hintResult.getNothingCount()).isEqualTo(count);
     }
+
+    @DisplayName("각 결과에 맞는 힌트 문자열 생성는지 테스트")
+    @ParameterizedTest
+    @CsvSource(value = {"123, 3스트라이크",
+        "124, 2스트라이크",
+        "321, 1스트라이크 2볼", "134, 1스트라이크 1볼", "156, 1스트라이크",
+        "231, 3볼", "234, 2볼", "891, 1볼",
+        "456, 낫싱"})
+    void makeHintString_success(String inputNumber, String hintString) {
+        HintResult hintResult = new HintResult(mockBaseballNumber, inputNumber);
+        assertThat(hintResult.makeHintString()).isEqualTo(hintString);
+    }
 }
