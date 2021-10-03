@@ -5,12 +5,12 @@ import java.util.Map;
 
 import nextstep.utils.Randoms;
 
-public class BaseBallNumber {
+public class BaseballNumber {
     private Map<Integer, Integer> numberIndexMap;
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 9;
 
-    public BaseBallNumber(int maxSize) {
+    public BaseballNumber(int maxSize) {
         this.numberIndexMap = new HashMap<>();
         while (numberIndexMap.size() < maxSize) {
             pickNumberIfUnique();

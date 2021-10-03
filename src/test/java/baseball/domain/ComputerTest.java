@@ -21,7 +21,7 @@ class ComputerTest {
     @DisplayName("야구게임숫자를 입력받았을 때 알맞은 검증결과를 반환하는지 테스트")
     @ParameterizedTest
     @CsvSource(value = {"129, true", ", false", "12, false", "1234, false", "012, false", "12a, false", "121, false"})
-    void isValidBaseballNumber_success(String baseballNumber, boolean expected) {
-        assertThat(computer.isValidBaseballNumber(baseballNumber)).isEqualTo(expected);
+    void isValidBaseballNumber_success(String inputNumber, boolean expected) {
+        assertThat(computer.isValidBaseballNumber(inputNumber)).isEqualTo(expected);
     }
 }

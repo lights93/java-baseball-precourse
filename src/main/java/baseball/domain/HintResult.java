@@ -6,13 +6,13 @@ import java.util.Map;
 public class HintResult {
     private final Map<Hint, Integer> hintCountMap;
 
-    public HintResult(BaseBallNumber baseBallNumber, String inputNumber) {
+    public HintResult(BaseballNumber baseballNumber, String inputNumber) {
         this.hintCountMap = initHintCountMap();
 
         char[] numChars = inputNumber.toCharArray();
         for (int index = 0; index < numChars.length; index++) {
             int num = numChars[index] - '0';
-            Hint hint = findHint(baseBallNumber, num, index);
+            Hint hint = findHint(baseballNumber, num, index);
             this.hintCountMap.compute(hint, (key, count) -> count + 1);
         }
     }
@@ -26,7 +26,7 @@ public class HintResult {
         return hintCountMap;
     }
 
-    private Hint findHint(BaseBallNumber baseBallNumber, int num, int index) {
+    private Hint findHint(BaseballNumber baseBallNumber, int num, int index) {
         if (baseBallNumber.getIndex(num) == index) {
             return Hint.STRIKE;
         }

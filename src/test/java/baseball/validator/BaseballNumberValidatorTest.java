@@ -27,10 +27,10 @@ class BaseballNumberValidatorTest {
         "012, INVALID_NUMBER", "12a, INVALID_NUMBER",
         "121, DUPLICATE_NUMBER"
     })
-    void checkValidBaseball_throwsException(String baseballNumber, String errorCode) {
+    void checkValidBaseball_throwsException(String inputNumber, String errorCode) {
         BaseBallNumberErrorCode baseBallNumberErrorCode = BaseBallNumberErrorCode.valueOf(errorCode);
 
-        assertThatThrownBy(() -> baseballNumberValidator.checkValidBaseball(baseballNumber))
+        assertThatThrownBy(() -> baseballNumberValidator.checkValidBaseball(inputNumber))
             .isInstanceOf(BaseballNumberException.class)
             .hasMessageContaining(baseBallNumberErrorCode.getMessage());
     }

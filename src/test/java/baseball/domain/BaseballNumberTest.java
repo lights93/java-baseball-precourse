@@ -12,8 +12,8 @@ import org.mockito.MockedStatic;
 
 import nextstep.utils.Randoms;
 
-class BaseBallNumberTest {
-    private BaseBallNumber baseBallNumber;
+class BaseballNumberTest {
+    private BaseballNumber baseBallNumber;
 
     @BeforeEach
     void setUp() {
@@ -22,7 +22,7 @@ class BaseBallNumberTest {
                 .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
                 .thenReturn(1, 2, 2, 1, 9);
 
-            baseBallNumber = new BaseBallNumber(3);
+            baseBallNumber = new BaseballNumber(3);
         }
     }
 
