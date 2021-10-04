@@ -26,13 +26,16 @@ class GameTest {
     @Test
     void init_success() {
         String numbers = "123";
+        String end = "2";
+        givenInputNumber(numbers);
+        givenInputEnd(end);
 
-        playGiven(numbers);
         game.init();
-        playThenVerify(numbers);
+        thenInputNumber(numbers);
+        thenInputEnd(end);
     }
 
-    private void playGiven(String numbers) {
+    private void givenInputNumber(String numbers) {
         doNothing().when(mockComputer).createBaseBallNumber();
         doNothing().when(mockComputer).askNumber();
 
@@ -41,11 +44,26 @@ class GameTest {
         when(mockComputer.checkAnswer(numbers)).thenReturn(true);
     }
 
-    private void playThenVerify(String numbers) {
+    private void givenInputEnd(String end) {
+        doNothing().when(mockComputer).askRestartOrEnd();
+
+        when(mockPlayer.inputRestartOrEnd()).thenReturn(end);
+        when(mockComputer.isValidGameStatusInput(end)).thenReturn(true);
+        when(mockComputer.isRestart(end)).thenReturn(false);
+    }
+
+    private void thenInputNumber(String numbers) {
         verify(mockComputer).createBaseBallNumber();
         verify(mockComputer).askNumber();
         verify(mockPlayer).inputNumbers();
         verify(mockComputer).isValidBaseballNumber(numbers);
         verify(mockComputer).checkAnswer(numbers);
+    }
+
+    private void thenInputEnd(String end) {
+        verify(mockComputer).askRestartOrEnd();
+        verify(mockPlayer).inputRestartOrEnd();
+        verify(mockComputer).isValidGameStatusInput(end);
+        verify(mockComputer).isRestart(end);
     }
 }

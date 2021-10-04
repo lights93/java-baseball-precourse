@@ -15,9 +15,13 @@ public class Game {
     }
 
     private void play() {
-        String numbers = getValidNumber();
-        if (!computer.checkAnswer(numbers)) {
+        if (!computer.checkAnswer(getValidNumber())) {
             play();
+            return;
+        }
+
+        if (computer.isRestart(getValidGameStatus())) {
+            init();
         }
     }
 
@@ -29,5 +33,15 @@ public class Game {
         }
 
         return getValidNumber();
+    }
+
+    private String getValidGameStatus() {
+        computer.askRestartOrEnd();
+        String restartOrEnd = player.inputRestartOrEnd();
+        if (computer.isValidGameStatusInput(restartOrEnd)) {
+            return restartOrEnd;
+        }
+
+        return getValidGameStatus();
     }
 }

@@ -49,4 +49,18 @@ class ComputerTest {
         assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> computer.checkAnswer("123"))
             .withMessage("숫자 생성이 안 되어 있습니다.");
     }
+
+    @DisplayName("재시작 또는 종료 입력값 유효성 검증 확인")
+    @ParameterizedTest
+    @CsvSource(value = {"1, true", "2, true", "3, false", "0, false", "12, false", ", false"})
+    void isValidGameStatusInput_success(String input, boolean expected) {
+        assertThat(computer.isValidGameStatusInput(input)).isEqualTo(expected);
+    }
+
+    @DisplayName("재시작인지 종료인지 제대로 확인하는지 테스트")
+    @ParameterizedTest
+    @CsvSource(value = {"1, true", "2, false"})
+    void isRestart(String input, boolean expected) {
+        assertThat(computer.isRestart(input)).isEqualTo(expected);
+    }
 }

@@ -2,7 +2,7 @@ package baseball.domain;
 
 import java.util.Objects;
 
-import baseball.exception.BaseballNumberException;
+import baseball.exception.BaseballGameException;
 import baseball.validator.BaseballNumberValidator;
 
 public class Computer {
@@ -25,7 +25,7 @@ public class Computer {
     public boolean isValidBaseballNumber(String inputNumber) {
         try {
             validator.checkValidBaseball(inputNumber);
-        } catch (BaseballNumberException e) {
+        } catch (BaseballGameException e) {
             System.out.println(e.getMessage());
             return false;
         }
@@ -45,11 +45,30 @@ public class Computer {
     }
 
     private void notifyEnd() {
-        System.out.println(MAX_SIZE + "개의 숫자를 모두 맞히셨습니다! 게임끝");
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        System.out.println(MAX_SIZE + "개의 숫자를 모두 맞히셨습니다! 게임 끝");
     }
 
     private void giveHint(HintResult hintResult) {
         System.out.println(hintResult.makeHintString());
+    }
+
+    public void askRestartOrEnd() {
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+    }
+
+    public boolean isValidGameStatusInput(String input) {
+        try {
+            GameStatus.findByNumber(input);
+        } catch (BaseballGameException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean isRestart(String restartOrEnd) {
+        GameStatus gameStatus = GameStatus.findByNumber(restartOrEnd);
+        return GameStatus.RESTART == gameStatus;
     }
 }

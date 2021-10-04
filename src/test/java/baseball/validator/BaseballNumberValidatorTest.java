@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import baseball.exception.BaseBallNumberErrorCode;
-import baseball.exception.BaseballNumberException;
+import baseball.exception.BaseballGameErrorCode;
+import baseball.exception.BaseballGameException;
 
 class BaseballNumberValidatorTest {
     private BaseballNumberValidator baseballNumberValidator = new BaseballNumberValidator();
@@ -28,10 +28,10 @@ class BaseballNumberValidatorTest {
         "121, DUPLICATE_NUMBER"
     })
     void checkValidBaseball_throwsException(String inputNumber, String errorCode) {
-        BaseBallNumberErrorCode baseBallNumberErrorCode = BaseBallNumberErrorCode.valueOf(errorCode);
+        BaseballGameErrorCode baseBallGameErrorCode = BaseballGameErrorCode.valueOf(errorCode);
 
         assertThatThrownBy(() -> baseballNumberValidator.checkValidBaseball(inputNumber))
-            .isInstanceOf(BaseballNumberException.class)
-            .hasMessageContaining(baseBallNumberErrorCode.getMessage());
+            .isInstanceOf(BaseballGameException.class)
+            .hasMessageContaining(baseBallGameErrorCode.getMessage());
     }
 }
