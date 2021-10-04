@@ -22,13 +22,13 @@ class GameTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @DisplayName("게임 시작 메서드 제대로 실행되는지 확인")
+    @DisplayName("게임 시작부터 종료까지 제대로 작동하는지 확인")
     @Test
-    void play_success() {
+    void init_success() {
         String numbers = "123";
 
         playGiven(numbers);
-        game.play();
+        game.init();
         playThenVerify(numbers);
     }
 

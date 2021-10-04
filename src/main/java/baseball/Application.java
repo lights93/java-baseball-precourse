@@ -10,6 +10,6 @@ public class Application {
         Computer computer = new Computer(new BaseballNumberValidator());
         Player player = new Player();
         Game game = new Game(computer, player);
-        game.play();
+        game.init();
     }
 }
