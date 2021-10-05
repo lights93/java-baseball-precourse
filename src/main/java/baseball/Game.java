@@ -35,7 +35,7 @@ public class Game {
     private void findAnswer() {
         HintResult hintResult = new HintResult(baseballAnswer, getValidNumber());
         View.printMessage(hintResult.makeHintString());
-        if (hintResult.getStrikeCount() != MAX_SIZE) {
+        if (!hintResult.isAllStrike(MAX_SIZE)) {
             findAnswer();
         }
     }

@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 class HintResultTest {
     @Mock
     private BaseballAnswer mockBaseballAnswer;
+    private static final int MAX_SIZE = 3;
 
     public HintResultTest() {
         MockitoAnnotations.openMocks(this);
@@ -26,28 +27,13 @@ class HintResultTest {
         when(mockBaseballAnswer.containsNumber(3)).thenReturn(true);
     }
 
-    @DisplayName("getStrikeCount 올바른 개수를 가져오는지 테스트")
-    @ParameterizedTest
-    @CsvSource(value = {"123, 3", "124, 2", "321, 1", "134, 1", "156, 1", "231, 0", "234, 0", "891, 0", "456, 0"})
-    void getStrikeCount_success(String numbers, int count) {
-        HintResult hintResult = new HintResult(mockBaseballAnswer, numbers);
-        assertThat(hintResult.getStrikeCount()).isEqualTo(count);
-    }
-
     @DisplayName("getBallCount 올바른 개수를 가져오는지 테스트")
     @ParameterizedTest
-    @CsvSource(value = {"123, 0", "124, 0", "321, 2", "134, 1", "156, 0", "231, 3", "234, 2", "891, 1", "456, 0"})
-    void getBallCount_success(String numbers, int count) {
+    @CsvSource(value = {"123, true",
+        "124, false", "321, false", "134, false", "156, false", "231, false", "234, false", "891, false", "456, false"})
+    void isAllStrike_success(String numbers, boolean expected) {
         HintResult hintResult = new HintResult(mockBaseballAnswer, numbers);
-        assertThat(hintResult.getBallCount()).isEqualTo(count);
-    }
-
-    @DisplayName("getNothingCount 올바른 개수를 가져오는지 테스트")
-    @ParameterizedTest
-    @CsvSource(value = {"123, 0", "124, 1", "321, 0", "134, 1", "156, 2", "231, 0", "234, 1", "891, 2", "456, 3"})
-    void getNothingCount_success(String numbers, int count) {
-        HintResult hintResult = new HintResult(mockBaseballAnswer, numbers);
-        assertThat(hintResult.getNothingCount()).isEqualTo(count);
+        assertThat(hintResult.isAllStrike(MAX_SIZE)).isEqualTo(expected);
     }
 
     @DisplayName("각 결과에 맞는 힌트 문자열 생성는지 테스트")

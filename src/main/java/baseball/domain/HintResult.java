@@ -38,16 +38,8 @@ public class HintResult {
         return Hint.NOTHING;
     }
 
-    public int getStrikeCount() {
-        return hintCountMap.get(Hint.STRIKE);
-    }
-
-    public int getBallCount() {
-        return hintCountMap.get(Hint.BALL);
-    }
-
-    public int getNothingCount() {
-        return hintCountMap.get(Hint.NOTHING);
+    public boolean isAllStrike(int size) {
+        return hintCountMap.get(Hint.STRIKE) == size;
     }
 
     public String makeHintString() {
