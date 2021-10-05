@@ -18,7 +18,7 @@ class GameStatusTest {
         assertThat(GameStatus.findByNumber(input));
     }
 
-    @DisplayName("게임상태값 잘못된 값 입력시 에러 던지는지 테스")
+    @DisplayName("게임상태값 잘못된 값 입력시 에러 던지는지 테스트")
     @ParameterizedTest
     @ValueSource(strings = {"0", "3", "12", "21", ""})
     void findByNumber_throwsBaseballGameException(String input) {
