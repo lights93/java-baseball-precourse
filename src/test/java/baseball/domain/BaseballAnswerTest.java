@@ -12,8 +12,8 @@ import org.mockito.MockedStatic;
 
 import nextstep.utils.Randoms;
 
-class BaseballNumberTest {
-    private BaseballNumber baseBallNumber;
+class BaseballAnswerTest {
+    private BaseballAnswer baseBallAnswer;
 
     @BeforeEach
     void setUp() {
@@ -22,21 +22,21 @@ class BaseballNumberTest {
                 .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
                 .thenReturn(1, 2, 2, 1, 9);
 
-            baseBallNumber = new BaseballNumber(3);
+            baseBallAnswer = new BaseballAnswer(3);
         }
     }
 
-    @DisplayName("BaseBallNumber의 contains 메소드 테스트")
+    @DisplayName("containsNumber 메소드 성공 테스트")
     @ParameterizedTest
     @CsvSource(value = {"1, true", "2, true", "9, true", "8, false", "3, false"})
     void containsNumber_success(int num, boolean expected) {
-        assertThat(baseBallNumber.containsNumber(num)).isEqualTo(expected);
+        assertThat(baseBallAnswer.containsNumber(num)).isEqualTo(expected);
     }
 
-    @DisplayName("BaseBallNumber의 getIndex 메소드 테스트")
+    @DisplayName("getIndex 메소드 성공 테스트")
     @ParameterizedTest
     @CsvSource(value = {"1, 0", "2, 1", "9, 2", "8, -1", "3, -1"})
     void getIndex_success(int num, int expected) {
-        assertThat(baseBallNumber.getIndex(num)).isEqualTo(expected);
+        assertThat(baseBallAnswer.getIndex(num)).isEqualTo(expected);
     }
 }

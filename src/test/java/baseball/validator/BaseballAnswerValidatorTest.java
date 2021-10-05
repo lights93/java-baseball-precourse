@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import baseball.exception.BaseballGameErrorCode;
 import baseball.exception.BaseballGameException;
 
-class BaseballNumberValidatorTest {
+class BaseballAnswerValidatorTest {
     private BaseballNumberValidator baseballNumberValidator = new BaseballNumberValidator();
 
     @DisplayName("올바른 야구게임숫자를 입력 받았을 때 성공하는지 테스트")

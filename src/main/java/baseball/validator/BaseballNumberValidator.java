@@ -11,23 +11,23 @@ public class BaseballNumberValidator {
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 9;
 
-    public void checkValidBaseball(String inputNumber) {
-        checkBaseballNumberIsNotEmpty(inputNumber);
-        checkBaseballNumberSize(inputNumber);
-        for (char numChar : inputNumber.toCharArray()) {
+    public void checkValidBaseball(String numbers) {
+        checkBaseballNumberIsNotEmpty(numbers);
+        checkBaseballNumberSize(numbers);
+        for (char numChar : numbers.toCharArray()) {
             checkIsValidBaseballNumber(numChar);
         }
-        checkNotContainsDuplicateNumber(inputNumber);
+        checkNotContainsDuplicateNumber(numbers);
     }
 
-    private void checkBaseballNumberIsNotEmpty(String inputNumber) {
-        if (inputNumber == null || inputNumber.trim().isEmpty()) {
+    private void checkBaseballNumberIsNotEmpty(String numbers) {
+        if (numbers == null || numbers.trim().isEmpty()) {
             throw new BaseballGameException(BaseballGameErrorCode.EMPTY);
         }
     }
 
-    private void checkBaseballNumberSize(String inputNumber) {
-        if (inputNumber.length() != SIZE) {
+    private void checkBaseballNumberSize(String numbers) {
+        if (numbers.length() != SIZE) {
             String description = SIZE + "개의 숫자를 입력해주세요.";
             throw new BaseballGameException(description, BaseballGameErrorCode.INVALID_SIZE);
         }
@@ -41,9 +41,9 @@ public class BaseballNumberValidator {
         }
     }
 
-    private void checkNotContainsDuplicateNumber(String inputNumber) {
+    private void checkNotContainsDuplicateNumber(String numbers) {
         Set<Character> set = new HashSet<>();
-        for (char numChar : inputNumber.toCharArray()) {
+        for (char numChar : numbers.toCharArray()) {
             checkDuplicateNumber(set, numChar);
             set.add(numChar);
         }

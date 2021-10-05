@@ -8,7 +8,7 @@ public class Game {
     private static final int MAX_SIZE = 3;
     private final Player player;
     private final BaseballNumberValidator validator;
-    private BaseballNumber baseballNumber;
+    private BaseballAnswer baseballAnswer;
 
     public Game(Player player, BaseballNumberValidator validator) {
         this.player = player;
@@ -16,7 +16,7 @@ public class Game {
     }
 
     public void init() {
-        this.baseballNumber = new BaseballNumber(MAX_SIZE);
+        this.baseballAnswer = new BaseballAnswer(MAX_SIZE);
         this.play();
     }
 
@@ -28,7 +28,7 @@ public class Game {
     }
 
     private void findAnswer() {
-        HintResult hintResult = new HintResult(baseballNumber, getValidNumber());
+        HintResult hintResult = new HintResult(baseballAnswer, getValidNumber());
         View.printMessage(hintResult.makeHintString());
         if (hintResult.getStrikeCount() != MAX_SIZE) {
             findAnswer();

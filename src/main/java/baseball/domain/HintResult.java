@@ -8,13 +8,13 @@ public class HintResult {
     private static final String SPACE = " ";
     private static final String EMPTY_STRING = "";
 
-    public HintResult(BaseballNumber baseballNumber, String inputNumber) {
+    public HintResult(BaseballAnswer baseballAnswer, String numbers) {
         this.hintCountMap = initHintCountMap();
 
-        char[] numChars = inputNumber.toCharArray();
+        char[] numChars = numbers.toCharArray();
         for (int index = 0; index < numChars.length; index++) {
             int num = numChars[index] - '0';
-            Hint hint = findHint(baseballNumber, num, index);
+            Hint hint = findHint(baseballAnswer, num, index);
             this.hintCountMap.compute(hint, (key, count) -> count + 1);
         }
     }
@@ -28,11 +28,11 @@ public class HintResult {
         return hintCountMap;
     }
 
-    private Hint findHint(BaseballNumber baseBallNumber, int num, int index) {
-        if (baseBallNumber.getIndex(num) == index) {
+    private Hint findHint(BaseballAnswer baseBallAnswer, int num, int index) {
+        if (baseBallAnswer.getIndex(num) == index) {
             return Hint.STRIKE;
         }
-        if (baseBallNumber.containsNumber(num)) {
+        if (baseBallAnswer.containsNumber(num)) {
             return Hint.BALL;
         }
         return Hint.NOTHING;
