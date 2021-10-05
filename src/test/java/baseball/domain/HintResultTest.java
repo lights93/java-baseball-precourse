@@ -17,14 +17,12 @@ class HintResultTest {
     public HintResultTest() {
         MockitoAnnotations.openMocks(this);
         when(mockBaseballAnswer.getIndex(anyInt())).thenReturn(-1);
-        when(mockBaseballAnswer.getIndex(1)).thenReturn(0);
-        when(mockBaseballAnswer.getIndex(2)).thenReturn(1);
-        when(mockBaseballAnswer.getIndex(3)).thenReturn(2);
-
         when(mockBaseballAnswer.containsNumber(anyInt())).thenReturn(false);
-        when(mockBaseballAnswer.containsNumber(1)).thenReturn(true);
-        when(mockBaseballAnswer.containsNumber(2)).thenReturn(true);
-        when(mockBaseballAnswer.containsNumber(3)).thenReturn(true);
+        int[] numbersArr = {1, 2, 3};
+        for (int number : numbersArr) {
+            when(mockBaseballAnswer.getIndex(number)).thenReturn(number - 1);
+            when(mockBaseballAnswer.containsNumber(number)).thenReturn(true);
+        }
     }
 
     @DisplayName("getBallCount 올바른 개수를 가져오는지 테스트")
