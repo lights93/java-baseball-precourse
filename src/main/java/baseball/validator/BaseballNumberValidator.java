@@ -11,7 +11,7 @@ public class BaseballNumberValidator {
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 9;
 
-    public void checkValidBaseball(String numbers) {
+    public void checkValidBaseballNumber(String numbers) {
         checkBaseballNumberIsNotEmpty(numbers);
         checkBaseballNumberSize(numbers);
         for (char numChar : numbers.toCharArray()) {

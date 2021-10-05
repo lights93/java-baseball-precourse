@@ -16,7 +16,7 @@ class BaseballAnswerValidatorTest {
     @DisplayName("올바른 야구게임숫자를 입력 받았을 때 성공하는지 테스트")
     @Test
     void checkValidBaseball_success() {
-        baseballNumberValidator.checkValidBaseball("129");
+        baseballNumberValidator.checkValidBaseballNumber("129");
     }
 
     @DisplayName("잘못된 야구게임숫자를 입력 받았을 때 적절한 에러를 던지는지 테스트")
@@ -30,7 +30,7 @@ class BaseballAnswerValidatorTest {
     void checkValidBaseball_throwsException(String inputNumber, String errorCode) {
         BaseballGameErrorCode baseBallGameErrorCode = BaseballGameErrorCode.valueOf(errorCode);
 
-        assertThatThrownBy(() -> baseballNumberValidator.checkValidBaseball(inputNumber))
+        assertThatThrownBy(() -> baseballNumberValidator.checkValidBaseballNumber(inputNumber))
             .isInstanceOf(BaseballGameException.class)
             .hasMessageContaining(baseBallGameErrorCode.getMessage());
     }

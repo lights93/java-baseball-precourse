@@ -33,41 +33,47 @@ public class Game {
     }
 
     private void findAnswer() {
-        HintResult hintResult = new HintResult(baseballAnswer, getValidNumber());
+        HintResult hintResult = new HintResult(baseballAnswer, inputUntilNumbersIsValid());
         View.printMessage(hintResult.makeHintString());
         if (!hintResult.isAllStrike(MAX_SIZE)) {
             findAnswer();
         }
     }
 
-    private String getValidNumber() {
-        View.printMessage(GameMessage.ASK_NUMBER.getMessage());
-        String numbers = player.inputNumbers();
+    private String inputUntilNumbersIsValid() {
+        String numbers = inputNumbers();
         try {
-            validator.checkValidBaseball(numbers);
+            validator.checkValidBaseballNumber(numbers);
         } catch (BaseballGameException e) {
             View.printErrorMessage(e.getMessage());
-            return getValidNumber();
+            return inputUntilNumbersIsValid();
         }
         return numbers;
     }
 
+    private String inputNumbers() {
+        View.printMessage(GameMessage.ASK_NUMBER.getMessage());
+        return player.inputNumbers();
+    }
+
     private void processRestartOrEnd() {
-        GameStatus gameStatus = GameStatus.findByNumber(getValidGameStatus());
+        GameStatus gameStatus = inputUntilGameStatusIsValid();
         if (gameStatus.isRestart()) {
             init();
         }
     }
 
-    private String getValidGameStatus() {
-        View.printMessage(GameMessage.ASK_RESTART_OR_END.getMessage());
-        String restartOrEnd = player.inputRestartOrEnd();
+    private GameStatus inputUntilGameStatusIsValid() {
         try {
-            GameStatus.findByNumber(restartOrEnd);
+            return GameStatus.findByNumber(inputGameStatus());
         } catch (BaseballGameException e) {
             View.printErrorMessage(e.getMessage());
-            return getValidGameStatus();
+            return inputUntilGameStatusIsValid();
         }
-        return restartOrEnd;
+    }
+
+    private String inputGameStatus() {
+        View.printMessage(GameMessage.ASK_RESTART_OR_END.getMessage());
+        return player.inputRestartOrEnd();
     }
 }
