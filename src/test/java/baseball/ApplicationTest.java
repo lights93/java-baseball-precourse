@@ -1,14 +1,15 @@
 package baseball;
 
-import nextstep.test.NSTest;
-import nextstep.utils.Randoms;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mockStatic;
+import nextstep.test.NSTest;
+import nextstep.utils.Randoms;
 
 public class ApplicationTest extends NSTest {
     @BeforeEach
@@ -20,8 +21,8 @@ public class ApplicationTest extends NSTest {
     void 낫싱() {
         try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
             mockRandoms
-                    .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
-                    .thenReturn(1, 3, 5);
+                .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                .thenReturn(1, 3, 5);
             running("246");
             verify("낫싱");
         }
@@ -31,8 +32,8 @@ public class ApplicationTest extends NSTest {
     void 게임종료_후_재시작() {
         try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
             mockRandoms.when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
-                    .thenReturn(7, 1, 3)
-                    .thenReturn(5, 8, 9);
+                .thenReturn(7, 1, 3)
+                .thenReturn(5, 8, 9);
             run("713", "1", "597", "589", "2");
             verify("3스트라이크", "게임 끝", "1스트라이크 1볼");
         }
@@ -45,6 +46,6 @@ public class ApplicationTest extends NSTest {
 
     @Override
     public void runMain() {
-        Application.main(new String[]{});
+        Application.main(new String[] {});
     }
 }

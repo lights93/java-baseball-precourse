@@ -1,6 +1,6 @@
 package nextstep.test;
 
-import org.assertj.core.util.Strings;
+import static org.assertj.core.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,8 +8,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.NoSuchElementException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import org.assertj.core.util.Strings;
 
 public abstract class NSTest {
     private PrintStream standardOut;
@@ -27,7 +26,7 @@ public abstract class NSTest {
      */
     protected void running(final String... args) {
         assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(
-                () -> subject(args)
+            () -> subject(args)
         );
     }
 
