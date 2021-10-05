@@ -31,4 +31,8 @@ public enum GameStatus {
 
         return numberGameStatusMap.get(number);
     }
+
+    public boolean isRestart() {
+        return RESTART == this;
+    }
 }

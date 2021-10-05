@@ -54,7 +54,7 @@ public class Game {
 
     private void processRestartOrEnd() {
         GameStatus gameStatus = GameStatus.findByNumber(getValidGameStatus());
-        if (GameStatus.RESTART == gameStatus) {
+        if (gameStatus.isRestart()) {
             init();
         }
     }
