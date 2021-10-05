@@ -7,10 +7,9 @@ public enum BaseballGameErrorCode {
     DUPLICATE_NUMBER("중복된 숫자가 존재합니다.");
 
     private final String message;
-    private static final String ERROR = "[ERROR]";
 
     BaseballGameErrorCode(String message) {
-        this.message = ERROR + " " + message;
+        this.message = message;
     }
 
     public String getMessage() {

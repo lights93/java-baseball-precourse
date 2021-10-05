@@ -4,66 +4,43 @@ import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.MockedStatic;
+
+import baseball.validator.BaseballNumberValidator;
+import nextstep.utils.Randoms;
 
 class GameTest {
-    @Mock
-    private Computer mockComputer;
-
-    @Mock
-    private Player mockPlayer;
-
-    @InjectMocks
-    private Game game;
+    private final Player mockPlayer;
+    private final Game game;
 
     public GameTest() {
-        MockitoAnnotations.openMocks(this);
+        mockPlayer = mock(Player.class);
+        game = new Game(mockPlayer, new BaseballNumberValidator());
     }
 
     @DisplayName("게임 시작부터 종료까지 제대로 작동하는지 확인")
     @Test
-    void init_success() {
-        String numbers = "123";
-        String end = "2";
-        givenInputNumber(numbers);
-        givenInputEnd(end);
+    public void init_success() {
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            givenInit(mockRandoms);
 
-        game.init();
-        thenInputNumber(numbers);
-        thenInputEnd(end);
+            game.init();
+
+            thenVerifyInit();
+        }
     }
 
-    private void givenInputNumber(String numbers) {
-        doNothing().when(mockComputer).createBaseBallNumber();
-        doNothing().when(mockComputer).askNumber();
+    private void givenInit(MockedStatic<Randoms> mockRandoms) {
+        mockRandoms
+            .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+            .thenReturn(1, 2, 3);
 
-        when(mockPlayer.inputNumbers()).thenReturn(numbers);
-        when(mockComputer.isValidBaseballNumber(numbers)).thenReturn(true);
-        when(mockComputer.checkAnswer(numbers)).thenReturn(true);
+        when(mockPlayer.inputNumbers()).thenReturn("123");
+        when(mockPlayer.inputRestartOrEnd()).thenReturn("2");
     }
 
-    private void givenInputEnd(String end) {
-        doNothing().when(mockComputer).askRestartOrEnd();
-
-        when(mockPlayer.inputRestartOrEnd()).thenReturn(end);
-        when(mockComputer.isValidGameStatusInput(end)).thenReturn(true);
-        when(mockComputer.isRestart(end)).thenReturn(false);
-    }
-
-    private void thenInputNumber(String numbers) {
-        verify(mockComputer).createBaseBallNumber();
-        verify(mockComputer).askNumber();
-        verify(mockPlayer).inputNumbers();
-        verify(mockComputer).isValidBaseballNumber(numbers);
-        verify(mockComputer).checkAnswer(numbers);
-    }
-
-    private void thenInputEnd(String end) {
-        verify(mockComputer).askRestartOrEnd();
-        verify(mockPlayer).inputRestartOrEnd();
-        verify(mockComputer).isValidGameStatusInput(end);
-        verify(mockComputer).isRestart(end);
+    private void thenVerifyInit() {
+        verify(mockPlayer, times(1)).inputNumbers();
+        verify(mockPlayer, times(1)).inputRestartOrEnd();
     }
 }

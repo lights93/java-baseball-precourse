@@ -1,47 +1,68 @@
 package baseball.domain;
 
-public class Game {
-    private final Computer computer;
-    private final Player player;
+import baseball.exception.BaseballGameException;
+import baseball.utils.View;
+import baseball.validator.BaseballNumberValidator;
 
-    public Game(Computer computer, Player player) {
-        this.computer = computer;
+public class Game {
+    private static final int MAX_SIZE = 3;
+    private final Player player;
+    private final BaseballNumberValidator validator;
+    private BaseballNumber baseballNumber;
+
+    public Game(Player player, BaseballNumberValidator validator) {
         this.player = player;
+        this.validator = validator;
     }
 
     public void init() {
-        computer.createBaseBallNumber();
+        this.baseballNumber = new BaseballNumber(MAX_SIZE);
         this.play();
     }
 
     private void play() {
-        if (!computer.checkAnswer(getValidNumber())) {
-            play();
-            return;
-        }
+        findAnswer();
 
-        if (computer.isRestart(getValidGameStatus())) {
-            init();
+        View.printMessage(MAX_SIZE + GameMessage.CORRECT_ANSWER.getMessage());
+        processRestartOrEnd();
+    }
+
+    private void findAnswer() {
+        HintResult hintResult = new HintResult(baseballNumber, getValidNumber());
+        View.printMessage(hintResult.makeHintString());
+        if (hintResult.getStrikeCount() != MAX_SIZE) {
+            findAnswer();
         }
     }
 
     private String getValidNumber() {
-        computer.askNumber();
+        View.printMessage(GameMessage.ASK_NUMBER.getMessage());
         String numbers = player.inputNumbers();
-        if (computer.isValidBaseballNumber(numbers)) {
-            return numbers;
+        try {
+            validator.checkValidBaseball(numbers);
+        } catch (BaseballGameException e) {
+            View.printErrorMessage(e.getMessage());
+            return getValidNumber();
         }
+        return numbers;
+    }
 
-        return getValidNumber();
+    private void processRestartOrEnd() {
+        GameStatus gameStatus = GameStatus.findByNumber(getValidGameStatus());
+        if (GameStatus.RESTART == gameStatus) {
+            init();
+        }
     }
 
     private String getValidGameStatus() {
-        computer.askRestartOrEnd();
+        View.printMessage(GameMessage.ASK_RESTART_OR_END.getMessage());
         String restartOrEnd = player.inputRestartOrEnd();
-        if (computer.isValidGameStatusInput(restartOrEnd)) {
-            return restartOrEnd;
+        try {
+            GameStatus.findByNumber(restartOrEnd);
+        } catch (BaseballGameException e) {
+            View.printErrorMessage(e.getMessage());
+            return getValidGameStatus();
         }
-
-        return getValidGameStatus();
+        return restartOrEnd;
     }
 }
