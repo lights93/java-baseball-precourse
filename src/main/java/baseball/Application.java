@@ -1,6 +1,5 @@
 package baseball;
 
-import baseball.domain.Game;
 import baseball.domain.Player;
 import baseball.validator.BaseballNumberValidator;
 

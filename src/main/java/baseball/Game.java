@@ -1,5 +1,10 @@
-package baseball.domain;
+package baseball;
 
+import baseball.domain.BaseballAnswer;
+import baseball.domain.GameMessage;
+import baseball.domain.GameStatus;
+import baseball.domain.HintResult;
+import baseball.domain.Player;
 import baseball.exception.BaseballGameException;
 import baseball.utils.View;
 import baseball.validator.BaseballNumberValidator;

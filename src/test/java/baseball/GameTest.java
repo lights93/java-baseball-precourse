@@ -1,4 +1,4 @@
-package baseball.domain;
+package baseball;
 
 import static org.mockito.Mockito.*;
 
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import baseball.domain.Player;
 import baseball.validator.BaseballNumberValidator;
 import nextstep.utils.Randoms;
 
