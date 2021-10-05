@@ -9,13 +9,13 @@ public class HintResult {
     private static final String EMPTY_STRING = "";
 
     public HintResult(BaseballAnswer baseballAnswer, String numbers) {
-        this.hintCountMap = initHintCountMap();
+        hintCountMap = initHintCountMap();
 
         char[] numChars = numbers.toCharArray();
         for (int index = 0; index < numChars.length; index++) {
             int num = numChars[index] - '0';
             Hint hint = findHint(baseballAnswer, num, index);
-            this.hintCountMap.compute(hint, (key, count) -> count + 1);
+            hintCountMap.compute(hint, (key, count) -> count + 1);
         }
     }
 
@@ -39,15 +39,15 @@ public class HintResult {
     }
 
     public int getStrikeCount() {
-        return this.hintCountMap.get(Hint.STRIKE);
+        return hintCountMap.get(Hint.STRIKE);
     }
 
     public int getBallCount() {
-        return this.hintCountMap.get(Hint.BALL);
+        return hintCountMap.get(Hint.BALL);
     }
 
     public int getNothingCount() {
-        return this.hintCountMap.get(Hint.NOTHING);
+        return hintCountMap.get(Hint.NOTHING);
     }
 
     public String makeHintString() {

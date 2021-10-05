@@ -11,7 +11,7 @@ public class BaseballAnswer {
     private static final int MAX_NUMBER = 9;
 
     public BaseballAnswer(int maxSize) {
-        this.numberIndexMap = new HashMap<>();
+        numberIndexMap = new HashMap<>();
         while (numberIndexMap.size() < maxSize) {
             pickNumberIfUnique();
         }

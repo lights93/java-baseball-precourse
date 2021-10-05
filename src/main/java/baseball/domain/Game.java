@@ -16,8 +16,8 @@ public class Game {
     }
 
     public void init() {
-        this.baseballAnswer = new BaseballAnswer(MAX_SIZE);
-        this.play();
+        baseballAnswer = new BaseballAnswer(MAX_SIZE);
+        play();
     }
 
     private void play() {
