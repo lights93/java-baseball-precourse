@@ -36,11 +36,11 @@ public class Computer {
     public boolean checkAnswer(String inputNumber) {
         Objects.requireNonNull(baseballNumber, "숫자 생성이 안 되어 있습니다.");
         HintResult hintResult = new HintResult(baseballNumber, inputNumber);
+        giveHint(hintResult);
         if (hintResult.getStrikeCount() == MAX_SIZE) {
             this.notifyEnd();
             return true;
         }
-        giveHint(hintResult);
         return false;
     }
 
